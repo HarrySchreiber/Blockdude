@@ -3,6 +3,8 @@ package blockdude;
 import java.io.File;
 import java.util.HashMap;
 
+import java.util.Scanner;
+
 /**
  * 
  * @author Henry Valentine Schreiber IV, Thomas Benjamin Clement, Jacob Thomas Dybas, Eric Spencer Lisle, Ethan Luke Harvey
@@ -34,7 +36,19 @@ public class main {
 	 * @return a hashmap with all of the levels from the file
 	 */
 	public HashMap<Integer,Stage> addLevels(String file){
-		return null;
+		HashMap <Integer, Stage> levels = new HashMap<Integer, Stage>();
+		Scanner in = new Scanner(file);
+		in.useDelimiter("/");
+		Integer counter = 1;
+		
+		while(in.hasNext()) {
+			
+			levels.put(counter, new Stage(in.next()));
+			counter = counter * 37;
+		}
+		in.close();
+		return levels;
+		
 	}
 
 }

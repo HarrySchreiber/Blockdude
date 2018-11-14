@@ -15,8 +15,11 @@ public class Player extends Entity{
 	 * @param facingLeft determines whether the player is facing left or right 
 	 */
 	public Player(int xPos, int yPos, boolean isFacingLeft) {
-		super(xPos, yPos, false, "Player.png");
+		super(xPos, yPos, false, "PlayerLeft.png");
 		this.isFacingLeft = isFacingLeft;
+		if(!isFacingLeft) {
+			this.setFileName("PlayerRight.png");
+		}
 	}
 	
 	/**

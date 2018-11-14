@@ -38,7 +38,7 @@ public class main {
 	public HashMap<Integer,Stage> addLevels(String file){
 		HashMap <Integer, Stage> levels = new HashMap<Integer, Stage>();
 		Scanner in = new Scanner(file);
-		in.useDelimiter("/");
+		in.useDelimiter(".");
 		Integer counter = 1;
 		
 		while(in.hasNext()) {

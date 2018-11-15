@@ -1,6 +1,7 @@
 package blockdude;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -17,6 +18,45 @@ public class Stage extends JFrame{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level) {
+		ArrayList<Entity> stage = null;
+		Scanner nextScan = new Scanner(level);
+		
+		// starting x and y position
+		int xPos = 0;
+		int yPos = 0;
+		
+		// delimiter
+		nextScan.useDelimiter("");
+		
+		while(nextScan.hasNext()) {
+			char temp = nextScan.next().charAt(0);
+			
+			// when calling entity we need to use x and y position
+			if (temp == 'A') {
+				stage.add(new AirBlock(xPos, yPos));
+				xPos = xPos + 1;
+			} else if (temp == 'I') {
+				stage.add(new ImmovableBlock(xPos, yPos));
+				xPos = xPos + 1;
+			} else if (temp == 'M') {
+				stage.add(new ImmovableBlock(xPos, yPos));
+				xPos = xPos + 1;
+			} else if (temp == 'R') {
+				boolean isLeftFacing = false;
+				stage.add(new Player(xPos, yPos, isLeftFacing));
+				xPos = xPos + 1;
+			} else if (temp == 'L') {
+				boolean isLeftFacing = true;
+				stage.add(new Player(xPos, yPos, isLeftFacing));
+				xPos = xPos + 1;
+			} else if (temp == '/') {
+				yPos = yPos + 1;
+			} else {
+				// empty statement is for n's when there is a newline
+			}	
+		}
+		
+		nextScan.close();
 		
 	}
 	

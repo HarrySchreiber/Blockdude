@@ -18,7 +18,6 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 	}
 	
 	/**
@@ -26,8 +25,15 @@ public class main {
 	 * @param file is the file with all of the levels
 	 * @return a string for each level
 	 */
-	public String parseFile(File file) {
-		return null;
+	public String parseFile(String file) throws FileNotFoundException{
+		File input = new File(file); 
+		String board = "";
+		Scanner fr = new Scanner(input); 
+		fr.useDelimiter("END");
+		while(fr.hasNext()) {
+			board += fr.next();
+		}
+		return board;
 	}
 	
 	/**

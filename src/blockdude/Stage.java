@@ -66,8 +66,19 @@ public class Stage extends JFrame{
 	 * @param second the entity to be swapped with
 	 */
 	public void swap(Entity first, Entity second) {
+		int firstx = first.getxPos();
+		int firsty = first.getyPos();
+		int secondx = second.getxPos();
+		int secondy = second.getyPos();
+
 		
-	}
+		Entity temp = stage.get(firsty).get(firstx);
+		ArrayList<Entity> tempList = new ArrayList<Entity>();
+		tempList.add(temp);
+
+		stage.set(secondy, stage.get(firsty)).set(secondx, stage.get(firsty).get(firstx));
+		stage.set(firsty, tempList).set(firstx, temp);
+		}
 	
 	/**
 	 * displays all of the block in the stage in an updated GUI

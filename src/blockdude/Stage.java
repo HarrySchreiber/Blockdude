@@ -18,45 +18,57 @@ public class Stage extends JFrame{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level) {
-		ArrayList<Entity> stage = null;
-		Scanner nextScan = new Scanner(level);
+		ArrayList<ArrayList<Entity>> stage = null;
 		
 		// starting x and y position
 		int xPos = 0;
 		int yPos = 0;
 		
-		// delimiter
-		nextScan.useDelimiter("");
+		Scanner getLine = new Scanner(level);
 		
-		while(nextScan.hasNext()) {
-			char temp = nextScan.next().charAt(0);
+		while(getLine.hasNext()) {
+			// creates a string of the line
+			String line = getLine.nextLine();
 			
-			// when calling entity we need to use x and y position
-			if (temp == 'A') {
-				stage.add(new AirBlock(xPos, yPos));
-				xPos = xPos + 1;
-			} else if (temp == 'I') {
-				stage.add(new ImmovableBlock(xPos, yPos));
-				xPos = xPos + 1;
-			} else if (temp == 'M') {
-				stage.add(new ImmovableBlock(xPos, yPos));
-				xPos = xPos + 1;
-			} else if (temp == 'R') {
-				boolean isLeftFacing = false;
-				stage.add(new Player(xPos, yPos, isLeftFacing));
-				xPos = xPos + 1;
-			} else if (temp == 'L') {
-				boolean isLeftFacing = true;
-				stage.add(new Player(xPos, yPos, isLeftFacing));
-				xPos = xPos + 1;
-			} else if (temp == '/') {
-				yPos = yPos + 1;
-			} else {
-				// empty statement is for n's when there is a newline
-			}	
+			// empty array list for line declared
+			ArrayList<Entity> oneRow = null;
+			
+			// a scanner of the line is declared
+			Scanner lineScan = new Scanner(line);
+			
+			while(lineScan.hasNext()) {
+
+				// grabs a single character from the line
+				char temp = lineScan.next().charAt(0);
+				
+				// when calling entity we need to use x and y position
+				if (temp == 'A') {
+					oneRow.add(new AirBlock(xPos, yPos));
+					xPos = xPos + 1;
+				} else if (temp == 'I') {
+					oneRow.add(new ImmovableBlock(xPos, yPos));
+					xPos = xPos + 1;
+				} else if (temp == 'M') {
+					oneRow.add(new ImmovableBlock(xPos, yPos));
+					xPos = xPos + 1;
+				} else if (temp == 'R') {
+					boolean isLeftFacing = false;
+					oneRow.add(new Player(xPos, yPos, isLeftFacing));
+					xPos = xPos + 1;
+				} else if (temp == 'L') {
+					boolean isLeftFacing = true;
+					oneRow.add(new Player(xPos, yPos, isLeftFacing));
+					xPos = xPos + 1;
+				}
+			}
+			
+			stage.add(oneRow);
+			yPos = yPos + 1;
+			lineScan.close();
+
 		}
 		
-		nextScan.close();
+		getLine.close();
 		
 	}
 	

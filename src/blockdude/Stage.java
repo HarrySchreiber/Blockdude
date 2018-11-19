@@ -18,7 +18,7 @@ public class Stage extends JFrame{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level) {
-ArrayList<ArrayList<Entity>> stage = null;
+		ArrayList<ArrayList<Entity>> stage = null;
 		
 		// starting x and y position
 		int xPos = 0;

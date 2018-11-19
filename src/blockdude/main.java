@@ -1,6 +1,7 @@
 package blockdude;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import java.util.Scanner;
@@ -18,6 +19,14 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Stage test = new Stage("IIII\r\n" + 
+				"DAAI\r\n" + 
+				"IARI\r\n" + 
+				"IIII");
+		test.printLocations();
+		System.out.println();
+//		test.testSwap();
+//		test.printClasses();
 	}
 	
 	/**

@@ -18,7 +18,7 @@ public class Stage extends JFrame{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level) {
-		ArrayList<ArrayList<Entity>> stage = null;
+		stage = new ArrayList<ArrayList<Entity>>();
 		
 		// starting x and y position
 		int xPos = 0;
@@ -31,10 +31,11 @@ public class Stage extends JFrame{
 			String line = getLine.nextLine();
 			
 			// empty array list for line declared
-			ArrayList<Entity> oneRow = null;
+			ArrayList<Entity> oneRow = new ArrayList<Entity>();
 			
 			// a scanner of the line is declared
 			Scanner lineScan = new Scanner(line);
+			lineScan.useDelimiter("");
 			
 			while(lineScan.hasNext()) {
 
@@ -49,7 +50,10 @@ public class Stage extends JFrame{
 					oneRow.add(new ImmovableBlock(xPos, yPos));
 					xPos = xPos + 1;
 				} else if (temp == 'M') {
-					oneRow.add(new ImmovableBlock(xPos, yPos));
+					oneRow.add(new MovableBlock(xPos, yPos));
+					xPos = xPos + 1;
+				} else if (temp == 'D') {
+					oneRow.add(new Door(xPos,yPos));
 					xPos = xPos + 1;
 				} else if (temp == 'R') {
 					boolean isLeftFacing = false;
@@ -63,6 +67,7 @@ public class Stage extends JFrame{
 			}
 			
 			stage.add(oneRow);
+			xPos = 0;
 			yPos = yPos + 1;
 			lineScan.close();
 

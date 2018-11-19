@@ -23,7 +23,7 @@ public class main {
 				"DAAI\r\n" + 
 				"IARI\r\n" + 
 				"IIII");
-		test.printLocations();
+		test.printClasses();
 		System.out.println();
 //		test.testSwap();
 //		test.printClasses();

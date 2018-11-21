@@ -66,13 +66,6 @@ public abstract class Entity {
 		return pixelWidth;
 	}
 
-	/**
-	 * 
-	 * @param pixelWidth sets the width of the block, in pixels
-	 */
-	public void setPixelWidth(int pixelWidth) {
-		this.pixelWidth = pixelWidth;
-	}
 	
 	/**
 	 * 
@@ -82,13 +75,6 @@ public abstract class Entity {
 		return pixelHeight;
 	}
 	
-	/**
-	 * 
-	 * @param pixelHeight is the new height of each block, in pixels
-	 */
-	public void setPixelHeight(int pixelHeight) {
-		this.pixelHeight = pixelHeight;
-	}
 	
 	/**
 	 * 

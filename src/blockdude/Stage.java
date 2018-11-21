@@ -83,10 +83,22 @@ public class Stage extends JFrame{
 	 * @param second the entity to be swapped with
 	 */
 	public void swap(Entity first, Entity second) {
+		
+		int xPos1 = first.getxPos();
+		int yPos1 = first.getyPos();
+		
+		int xPos2 = second.getxPos();
+		int yPos2 = second.getyPos();
 
 		Entity temp = first;
-		stage.get(first.getyPos()).set(first.getxPos(), second);
-		stage.get(second.getyPos()).set(second.getyPos(), temp);
+		stage.get(yPos1).set(xPos1, second);
+		stage.get(yPos2).set(xPos2, temp);
+		
+		stage.get(yPos1).get(xPos1).setxPos(xPos1);
+		stage.get(yPos1).get(xPos1).setyPos(yPos1);
+		
+		stage.get(yPos2).get(xPos2).setxPos(xPos2);
+		stage.get(yPos2).get(xPos2).setyPos(yPos2);
 		
 	}
 	

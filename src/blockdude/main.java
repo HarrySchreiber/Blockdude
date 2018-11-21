@@ -25,6 +25,10 @@ public class main {
 				"DAAI\r\n" + 
 				"IARI\r\n" + 
 				"IIII");
+		test.printClasses();
+		test.testSwap();
+		test.testSwap();
+		test.printClasses();
 	}
 	
 	/**

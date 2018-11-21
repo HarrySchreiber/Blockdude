@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 /**
  * 
  * @author Henry Valentine Schreiber IV, Thomas Benjamin Clement, Jacob Thomas Dybas, Eric Spencer Lisle, Ethan Luke Harvey
@@ -23,10 +25,6 @@ public class main {
 				"DAAI\r\n" + 
 				"IARI\r\n" + 
 				"IIII");
-		test.printClasses();
-		System.out.println();
-//		test.testSwap();
-//		test.printClasses();
 	}
 	
 	/**

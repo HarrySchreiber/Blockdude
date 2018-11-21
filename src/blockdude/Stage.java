@@ -1,5 +1,6 @@
 package blockdude;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,7 +83,6 @@ public class Stage extends JFrame{
 	 * @param second the entity to be swapped with
 	 */
 	public void swap(Entity first, Entity second) {
-		
 
 		Entity temp = first;
 		stage.get(first.getyPos()).set(first.getxPos(), second);
@@ -102,6 +102,14 @@ public class Stage extends JFrame{
 	 */
 	public void move() {
 		
+	}
+	
+	public int stageWidth() {
+		return stage.get(0).size();
+	}
+	
+	public int stageHeight() {
+		return stage.size();
 	}
 	
 	//FIXME Testing Material

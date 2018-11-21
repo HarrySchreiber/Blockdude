@@ -124,7 +124,7 @@ public class Stage extends JFrame{
 		return stage.size();
 	}
 	
-	//FIXME Testing Material
+	//FIXME Testing Material Begins
 	public void printClasses() {
 		String result = "";
 		for(ArrayList<Entity> x : stage) {
@@ -152,5 +152,35 @@ public class Stage extends JFrame{
 		}
 		System.out.println(result);
 	}
+	
+	public void printBoardCharacters() {
+		String result = "";
+		for(ArrayList<Entity> x : stage) {
+			for(Entity y : x) {
+				if(y instanceof AirBlock) {
+					//Using " " instead of "A" to make things less cluttered
+					result += " ";
+				}else if(y instanceof Door) {
+					result += "D";
+				}else if(y instanceof ImmovableBlock) {
+					result += "I";
+				}else if(y instanceof MovableBlock) {
+					result += "M";
+				}else if(y instanceof Player) {
+					//Using arrows rather then "L" and "R" so its easier to determine
+					if(((Player) y).getIsFacingLeft()) {
+						result += "<";
+					}else {
+						result += ">";
+					}
+				}
+			}
+			result += "\n";
+		}
+		System.out.println(result);
+	}
+	
+	
+	//FIXME End Testing Material
 
 }

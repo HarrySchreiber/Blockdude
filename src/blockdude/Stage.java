@@ -136,6 +136,28 @@ public class Stage extends JFrame implements KeyListener{
 		return stage.size();
 	}
 	
+	public int findPlayerXPos() {
+		for(ArrayList<Entity> x : stage) {
+			for(Entity y : x) {
+				if(y instanceof Player) {
+					return y.getxPos();
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public int findPlayerYPos() {
+		for(ArrayList<Entity> x : stage) {
+			for(Entity y : x) {
+				if(y instanceof Player) {
+					return y.getyPos();
+				}
+			}
+		}
+		return -1;
+	}
+	
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -144,9 +166,18 @@ public class Stage extends JFrame implements KeyListener{
 		
 		if(keyCode == KeyEvent.VK_LEFT) {
 			System.out.println("Left");
+			//Changes Player Direction
+			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
+			temp.setIsFacingLeft(true);
+			stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 		}
 		if(keyCode == KeyEvent.VK_RIGHT) {
 			System.out.println("Right");
+			System.out.println("Left");
+			//Changes player direction
+			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
+			temp.setIsFacingLeft(false);
+			stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 		}
 		if(keyCode == KeyEvent.VK_UP) {
 			System.out.println("Up");

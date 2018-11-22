@@ -170,6 +170,11 @@ public class Stage extends JFrame implements KeyListener{
 			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 			temp.setIsFacingLeft(true);
 			stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+			
+			//Moves Left
+			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier()) {
+				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+			}
 		}
 		if(keyCode == KeyEvent.VK_RIGHT) {
 			System.out.println("Right");
@@ -178,6 +183,11 @@ public class Stage extends JFrame implements KeyListener{
 			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 			temp.setIsFacingLeft(false);
 			stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+			
+			//Moves Right
+			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier()) {
+				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+			}
 		}
 		if(keyCode == KeyEvent.VK_UP) {
 			System.out.println("Up");

@@ -15,6 +15,8 @@ import javax.swing.JFrame;
  */
 public class Stage extends JFrame implements KeyListener{
 	private ArrayList<ArrayList<Entity>> stage;
+	private int doorXPos;
+	private int doorYPos;
 	
 	/**
 	 * 
@@ -87,6 +89,9 @@ public class Stage extends JFrame implements KeyListener{
 		}
 		
 		getLine.close();
+		
+		this.doorXPos = findDoorXPos();
+		this.doorYPos = findDoorYPos();
 	}
 	
 	/**
@@ -166,6 +171,32 @@ public class Stage extends JFrame implements KeyListener{
 			}
 		}
 		return -1;
+	}
+	
+	public int findDoorXPos() {
+		for(ArrayList<Entity> x : stage) {
+			for(Entity y : x) {
+				if(y instanceof Door) {
+					return y.getxPos();
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public int findDoorYPos() {
+		for(ArrayList<Entity> x : stage) {
+			for(Entity y : x) {
+				if(y instanceof Door) {
+					return y.getyPos();
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public boolean levelWin() {
+		return (findPlayerXPos() == doorXPos) && (findPlayerYPos() == doorYPos);
 	}
 	
 	

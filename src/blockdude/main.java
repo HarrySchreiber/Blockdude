@@ -21,14 +21,14 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Stage test = new Stage("IIII\r\n" + 
-				"DAAI\r\n" + 
-				"IARI\r\n" + 
-				"IIII");
-		test.printBoardCharacters();
-		test.testSwap();
-		test.testSwap();
-		test.printBoardCharacters();
+		Stage test = new Stage("IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI\r\n" + 
+				"IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI\r\n" + 
+				"IAAAAAAAAAAAAAAAAAAAAAAAAAAAMAI\r\n" + 
+				"IAAAAAAAAIIIIIAAAAIAAAAAAAAMMAI\r\n" + 
+				"DAAAAAAAAAAAAAAAAAIAAAIARAMMMAI\r\n" + 
+				"IIIAAAAIIIIIIIIIIIIIIIIIIIIIIII\r\n" + 
+				"IIIAAAAIIIIIIIIIIIIIIIIIIIIIIII\r\n" + 
+				"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 	}
 	
 	/**

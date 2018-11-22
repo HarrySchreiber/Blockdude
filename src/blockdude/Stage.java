@@ -1,6 +1,8 @@
 package blockdude;
 
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +13,7 @@ import javax.swing.JFrame;
  * @author Henry Valentine Schreiber IV, Thomas Benjamin Clement, Jacob Thomas Dybas, Eric Spencer Lisle, Ethan Luke Harvey
  *	This class is for the stage and contains all of the blocks
  */
-public class Stage extends JFrame{
+public class Stage extends JFrame implements KeyListener{
 	private ArrayList<ArrayList<Entity>> stage;
 	
 	/**
@@ -19,6 +21,16 @@ public class Stage extends JFrame{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level) {
+		
+		//FIXME This is far from finished yet, but necessary to get key events
+		super("Blockdude");
+		this.addKeyListener(this);
+		this.setLayout(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(500,500);
+		this.setVisible(true);
+		
+		
 		stage = new ArrayList<ArrayList<Entity>>();
 		
 		// starting x and y position
@@ -122,6 +134,39 @@ public class Stage extends JFrame{
 	
 	public int stageHeight() {
 		return stage.size();
+	}
+	
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Figure out logic for these... Print Statements Just check if statements work
+		int keyCode = e.getKeyCode();
+		
+		if(keyCode == KeyEvent.VK_LEFT) {
+			System.out.println("Left");
+		}
+		if(keyCode == KeyEvent.VK_RIGHT) {
+			System.out.println("Right");
+		}
+		if(keyCode == KeyEvent.VK_UP) {
+			System.out.println("Up");
+		}
+		if(keyCode == KeyEvent.VK_DOWN) {
+			System.out.println("Down");
+		}
+		
+		//FIXME Shows an Updated board after every move
+		printBoardCharacters();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
 	}
 	
 	//FIXME Testing Material Begins

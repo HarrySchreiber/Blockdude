@@ -121,17 +121,27 @@ public class Stage extends JFrame implements KeyListener{
 		
 	}
 	
-	/**
-	 * move the player block
+	/** 
+	 * Takes an entity and drops it down to the floor, like gravity
+	 * 
+	 * @param e An Entity to be moved to the floor
 	 */
-	public void move() {
-		
+	public void floorEntity(Entity e) {
+		while(!stage.get(e.getyPos() + 1).get(e.getxPos()).isBarrier()) {
+			swap(stage.get(e.getyPos() + 1).get(e.getxPos()), stage.get(e.getyPos()).get(e.getxPos()));
+		}
 	}
 	
+	/**
+	 * @return The Width of the stage
+	 */
 	public int stageWidth() {
 		return stage.get(0).size();
 	}
 	
+	/**
+	 * @return The Height of the stage
+	 */
 	public int stageHeight() {
 		return stage.size();
 	}
@@ -175,6 +185,8 @@ public class Stage extends JFrame implements KeyListener{
 			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier()) {
 				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
+			
+			floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 		}
 		if(keyCode == KeyEvent.VK_RIGHT) {
 			System.out.println("Right");
@@ -188,6 +200,8 @@ public class Stage extends JFrame implements KeyListener{
 			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier()) {
 				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
+			
+			floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 		}
 		if(keyCode == KeyEvent.VK_UP) {
 			System.out.println("Up");

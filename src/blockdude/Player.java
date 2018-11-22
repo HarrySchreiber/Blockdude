@@ -7,6 +7,7 @@ package blockdude;
  */
 public class Player extends Entity{
 	private boolean isFacingLeft = true;
+	private boolean isHoldingBlock;
 	
 	/**
 	 * 
@@ -20,22 +21,40 @@ public class Player extends Entity{
 		if(!isFacingLeft) {
 			this.setFileName("PlayerRight.png");
 		}
+		this.setHoldingBlock(false);
 	}
 	
 	/**
 	 * 
-	 * @param facingLeft changes whether the player is facing left or not
+	 * @param isFacingLeft changes whether the player is facing left or not
 	 */
 	public void setIsFacingLeft(boolean facingLeft) {
 		this.isFacingLeft = facingLeft;
+		if(!isFacingLeft) {
+			this.setFileName("PlayerRight.png");
+		}
 	}
 	
 	/**
 	 * 
-	 * @return whether or no the player is facing left
+	 * @return whether or not the player is facing left
 	 */
 	public boolean getIsFacingLeft() {
 		return isFacingLeft;
+	}
+	
+	/**
+	 * @return whether or not the player is holding a block
+	 */
+	public boolean isHoldingBlock() {
+		return isHoldingBlock;
+	}
+	
+	/**
+	 * @param isHoldingBlock changes when the player picks up or places a block
+	 */
+	public void setHoldingBlock(boolean isHoldingBlock) {
+		this.isHoldingBlock = isHoldingBlock;
 	}
 	
 }

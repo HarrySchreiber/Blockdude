@@ -29,8 +29,12 @@ public class main {
 				"IIIAAAAIIIIIIIIIIIIIIIIIIIIIIII\r\n" + 
 				"IIIAAAAIIIIIIIIIIIIIIIIIIIIIIII\r\n" + 
 				"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+		
+		randStage randTest = new randStage();
+		System.out.println(randTest.getRandStage());
 	}
-	
+		
+		
 	/**
 	 * 
 	 * @param file is the file with all of the levels

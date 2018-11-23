@@ -47,25 +47,4 @@ public class main {
 		return board;
 	}
 	
-	/**
-	 * 
-	 * @param file is the file with all of the levels
-	 * @return a hashmap with all of the levels from the file
-	 */
-	public HashMap<Integer,Stage> addLevels(String file){
-		HashMap <Integer, Stage> levels = new HashMap<Integer, Stage>();
-		Scanner in = new Scanner(file);
-		in.useDelimiter(".");
-		Integer counter = 1;
-		
-		while(in.hasNext()) {
-			
-			levels.put(counter, new Stage(in.next()));
-			counter = counter * 37;
-		}
-		in.close();
-		return levels;
-		
-	}
-
 }

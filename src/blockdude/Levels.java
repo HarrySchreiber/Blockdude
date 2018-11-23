@@ -17,12 +17,4 @@ public class Levels {
 		levels = new HashMap<>();
 	}
 	
-	/**
-	 * 
-	 * @param i is the key of the map to be added to the hashmap
-	 * @param s is the stage which is being added
-	 */
-	public void addStage(Integer i, Stage s) {
-		
-	}
 }

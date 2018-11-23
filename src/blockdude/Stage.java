@@ -236,6 +236,16 @@ public class Stage extends JFrame implements KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_UP) {
 			System.out.println("Up");
+			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
+			if(temp.getIsFacingLeft()) {
+				if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
+					swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
+				}
+			}else {
+				if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
+					swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1 ));
+				}
+			}
 		}
 		if(keyCode == KeyEvent.VK_DOWN) {
 			System.out.println("Down");

@@ -134,6 +134,12 @@ public class Stage extends JFrame implements KeyListener{
 	public void floorEntity(Entity e) {
 		while(!stage.get(e.getyPos() + 1).get(e.getxPos()).isBarrier()) {
 			swap(stage.get(e.getyPos() + 1).get(e.getxPos()), stage.get(e.getyPos()).get(e.getxPos()));
+			if(e instanceof Player) {
+				Player temp = (Player) e;
+				if(temp.isHoldingBlock()) {
+					floorEntity(stage.get(e.getyPos() - 2).get(e.getxPos()));
+				}
+			}
 		}
 	}
 	
@@ -215,7 +221,17 @@ public class Stage extends JFrame implements KeyListener{
 			//Moves Left
 			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier()) {
 				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+				if(temp.isHoldingBlock()) {
+					if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
+						swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+					}else {
+						temp.setHoldingBlock(false);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+						floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1));
+					}
+				}
 			}
+			
 			
 			floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 		}
@@ -230,7 +246,17 @@ public class Stage extends JFrame implements KeyListener{
 			//Moves Right
 			if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier()) {
 				swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+				if(temp.isHoldingBlock()) {
+					if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
+						swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+					}else {
+						temp.setHoldingBlock(false);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+						floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
+					}
+				}
 			}
+			
 			
 			floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 		}
@@ -240,15 +266,53 @@ public class Stage extends JFrame implements KeyListener{
 			if(temp.getIsFacingLeft()) {
 				if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
+					if(temp.isHoldingBlock()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+					}
 				}
 			}else {
 				if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1 ));
+					if(temp.isHoldingBlock()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+					}
 				}
 			}
 		}
 		if(keyCode == KeyEvent.VK_DOWN) {
 			System.out.println("Down");
+			Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
+			if(!temp.isHoldingBlock()) {
+				if(temp.getIsFacingLeft()) {
+					if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1) instanceof MovableBlock && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						temp.setHoldingBlock(true);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+					}
+				}else {
+					if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1) instanceof MovableBlock && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						temp.setHoldingBlock(true);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+					}
+				}
+			}else {
+				if(temp.getIsFacingLeft()) {
+					if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1));
+						temp.setHoldingBlock(false);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+					}
+				}else {
+					if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
+						swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1));
+						temp.setHoldingBlock(false);
+						stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+					}
+				}
+			}
 		}
 		
 		//FIXME Shows an Updated board after every move

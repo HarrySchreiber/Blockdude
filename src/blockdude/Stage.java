@@ -77,39 +77,39 @@ public class Stage extends JFrame implements KeyListener{
 				if (temp == 'A') {
 					oneRow.add(new AirBlock(xPos, yPos));
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
-			        air.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        air.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 			        xPos = xPos + 1;
 				} else if (temp == 'I') {
 					oneRow.add(new ImmovableBlock(xPos, yPos));
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
-					immovable.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+					immovable.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 			        xPos = xPos + 1;
 				} else if (temp == 'M') {
 					oneRow.add(new MovableBlock(xPos, yPos));
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
-					movable.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+					movable.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
 			        panel.add(movable);
 					xPos = xPos + 1;
 				} else if (temp == 'D') {
 					oneRow.add(new Door(xPos,yPos));
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
-					door.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+					door.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 			        xPos = xPos + 1;
 				} else if (temp == 'R') {
 					boolean isLeftFacing = false;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
 					playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
-					playerRight.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+					playerRight.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
 			        panel.add(playerRight);
 			        xPos = xPos + 1;
 				} else if (temp == 'L') {
 					boolean isLeftFacing = true;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
 					playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
-					playerLeft.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), 100); // x, y, width, height
+					playerLeft.setBounds(xPos * 25, yPos * 25, oneRow.get(xPos).getPixelWidth(), 100); // x, y, width, height
 			        panel.add(playerLeft);
 			        xPos = xPos + 1;
 				}

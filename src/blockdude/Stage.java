@@ -3,10 +3,11 @@ package blockdude;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.*;
 
-import javax.swing.JFrame;
 
 /**
  * 
@@ -17,6 +18,14 @@ public class Stage extends JFrame implements KeyListener{
 	private ArrayList<ArrayList<Entity>> stage;
 	private int doorXPos;
 	private int doorYPos;
+	private javax.swing.JLabel immovable;
+	private javax.swing.JLabel air;
+	private javax.swing.JLabel movable;
+	private javax.swing.JLabel playerLeft;
+	private javax.swing.JLabel playerRight;
+	private javax.swing.JLabel door;
+	private JFrame frame;
+	private JPanel panel;
 	
 	/**
 	 * 
@@ -25,15 +34,22 @@ public class Stage extends JFrame implements KeyListener{
 	public Stage(String level) {
 		
 		//FIXME This is far from finished yet, but necessary to get key events
-		super("Blockdude");
-		this.addKeyListener(this);
-		this.setLayout(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
-		this.setVisible(true);
-		
-		
+		frame = new JFrame("BlockDude");
+	    panel = new JPanel();
+	    panel.setLayout(null);
+	    frame.setContentPane(panel);
+	    
+	    
+
+		air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
+		door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
+		immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
+		movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
+		playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
+		playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
+	    
 		stage = new ArrayList<ArrayList<Entity>>();
+
 		
 		// starting x and y position
 		int xPos = 0;
@@ -60,26 +76,46 @@ public class Stage extends JFrame implements KeyListener{
 				// when calling entity we need to use x and y position
 				if (temp == 'A') {
 					oneRow.add(new AirBlock(xPos, yPos));
-					xPos = xPos + 1;
+					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
+			        air.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        panel.add(air);
+			        xPos = xPos + 1;
 				} else if (temp == 'I') {
 					oneRow.add(new ImmovableBlock(xPos, yPos));
-					xPos = xPos + 1;
+					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
+					immovable.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        panel.add(immovable);
+			        xPos = xPos + 1;
 				} else if (temp == 'M') {
 					oneRow.add(new MovableBlock(xPos, yPos));
+					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
+					movable.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        panel.add(movable);
 					xPos = xPos + 1;
 				} else if (temp == 'D') {
 					oneRow.add(new Door(xPos,yPos));
-					xPos = xPos + 1;
+					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
+					door.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        panel.add(door);
+			        xPos = xPos + 1;
 				} else if (temp == 'R') {
 					boolean isLeftFacing = false;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
-					xPos = xPos + 1;
+					playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
+					playerRight.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), oneRow.get(xPos).getPixelHeight()); // x, y, width, height
+			        panel.add(playerRight);
+			        xPos = xPos + 1;
 				} else if (temp == 'L') {
 					boolean isLeftFacing = true;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
-					xPos = xPos + 1;
+					playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
+					playerLeft.setBounds(xPos * 100, yPos * 100, oneRow.get(xPos).getPixelWidth(), 100); // x, y, width, height
+			        panel.add(playerLeft);
+			        xPos = xPos + 1;
 				}
 			}
+			
+			System.out.println(panel);
 			
 			stage.add(oneRow);
 			xPos = 0;
@@ -92,6 +128,15 @@ public class Stage extends JFrame implements KeyListener{
 		
 		this.doorXPos = findDoorXPos();
 		this.doorYPos = findDoorYPos();
+		
+		
+		panel.validate();
+		frame.addKeyListener(this);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.repaint();
+		frame.setSize(500,500);
+		frame.setVisible(true);
+		
 	}
 	
 	/**
@@ -358,30 +403,54 @@ public class Stage extends JFrame implements KeyListener{
 		System.out.println(result);
 	}
 	
-	public void printBoardCharacters() {
-		String result = "";
+	public void printBoardCharacters(){
+		String result = "";        
+		JPanel panel = new JPanel();
+		
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
 				if(y instanceof AirBlock) {
 					//Using " " instead of "A" to make things less cluttered
 					result += " ";
+					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
+			        air.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        panel.add(air);
 				}else if(y instanceof Door) {
 					result += "D";
+					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
+			        door.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        panel.add(door);
 				}else if(y instanceof ImmovableBlock) {
 					result += "I";
+					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
+			        immovable.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        panel.add(immovable);
 				}else if(y instanceof MovableBlock) {
 					result += "M";
+					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
+			        movable.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+					panel.add(movable);
 				}else if(y instanceof Player) {
 					//Using arrows rather then "L" and "R" so its easier to determine
 					if(((Player) y).getIsFacingLeft()) {
 						result += "<";
+						playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
+				        playerLeft.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+						panel.add(playerLeft);
 					}else {
 						result += ">";
+						playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
+				        playerRight.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+						panel.add(playerRight);
 					}
 				}
 			}
 			result += "\n";
 		}
+		frame.add(panel);
+		frame.invalidate();
+		frame.revalidate();
+		frame.repaint();
 		System.out.println(result);
 	}
 	

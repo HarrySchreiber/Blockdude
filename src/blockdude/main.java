@@ -50,9 +50,8 @@ public class main {
 		File input = new File(file); 
 		String board = "";
 		Scanner fr = new Scanner(input); 
-		fr.useDelimiter("END");
-		while(fr.hasNext()) {
-			board += fr.next();
+		while(fr.hasNextLine()) {
+			board += fr.nextLine();
 		}
 		return board;
 	}

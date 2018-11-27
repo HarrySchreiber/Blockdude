@@ -53,6 +53,7 @@ public class main {
 		while(fr.hasNextLine()) {
 			board += fr.nextLine();
 		}
+		fr.close();
 		return board;
 	}
 	

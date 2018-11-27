@@ -405,7 +405,9 @@ public class Stage extends JFrame implements KeyListener{
 	
 	public void printBoardCharacters(){
 		String result = "";        
-		JPanel panel = new JPanel();
+		panel = new JPanel();
+		panel.setLayout(null);
+		frame.setContentPane(panel);
 		
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -413,44 +415,44 @@ public class Stage extends JFrame implements KeyListener{
 					//Using " " instead of "A" to make things less cluttered
 					result += " ";
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
-			        air.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        air.setBounds(y.getxPos() * 25 , y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 				}else if(y instanceof Door) {
 					result += "D";
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
-			        door.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        door.setBounds(y.getxPos() * 25, y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 				}else if(y instanceof ImmovableBlock) {
 					result += "I";
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
-			        immovable.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        immovable.setBounds(y.getxPos() * 25, y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 				}else if(y instanceof MovableBlock) {
 					result += "M";
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
-			        movable.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+			        movable.setBounds(y.getxPos() * 25, y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 					panel.add(movable);
 				}else if(y instanceof Player) {
 					//Using arrows rather then "L" and "R" so its easier to determine
 					if(((Player) y).getIsFacingLeft()) {
 						result += "<";
 						playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
-				        playerLeft.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+				        playerLeft.setBounds(y.getxPos() * 25, y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 						panel.add(playerLeft);
 					}else {
 						result += ">";
 						playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
-				        playerRight.setBounds(y.getxPos(), y.getyPos(), 100, 100); // x, y, width, height
+				        playerRight.setBounds(y.getxPos() * 25, y.getyPos() * 25, y.getPixelWidth(), y.getPixelHeight()); // x, y, width, height
 						panel.add(playerRight);
 					}
 				}
 			}
 			result += "\n";
 		}
-		frame.add(panel);
 		frame.invalidate();
 		frame.revalidate();
 		frame.repaint();
+		frame.setVisible(true);
 		System.out.println(result);
 	}
 	

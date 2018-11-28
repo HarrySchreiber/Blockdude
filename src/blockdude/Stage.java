@@ -31,10 +31,10 @@ public class Stage extends JFrame implements KeyListener{
 	 * 
 	 * @param level is the string from which the level is created
 	 */
-	public Stage(String level) {
+	public Stage(String level, JFrame frame) {
 		
 		//FIXME This is far from finished yet, but necessary to get key events
-		frame = new JFrame("BlockDude");
+		this.frame = frame;
 	    panel = new JPanel();
 	    panel.setLayout(null);
 	    frame.setContentPane(panel);
@@ -115,7 +115,6 @@ public class Stage extends JFrame implements KeyListener{
 				}
 			}
 			
-			System.out.println(panel);
 			
 			stage.add(oneRow);
 			xPos = 0;

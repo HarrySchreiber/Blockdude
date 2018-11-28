@@ -41,6 +41,7 @@ public class main {
 		String board = "";
 		Scanner fr = new Scanner(input); 
 		fr.useDelimiter("");
+		
 		while(fr.hasNext()) {
 			board += fr.next();
 		}

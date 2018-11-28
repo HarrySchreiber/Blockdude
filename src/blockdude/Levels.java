@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.*;
 
 /**
  * 
@@ -23,12 +29,28 @@ public class Levels {
 		in.useDelimiter("\\s*END\\s*");
 		Integer counter = 1;
 		
+		JFrame frame = new JFrame();
+	    JPanel panel = new JPanel();
+	    panel.setLayout(null);
+	    frame.setContentPane(panel);
+		panel.validate();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.repaint();
+		frame.setSize(500,500);
+		frame.setVisible(true);
+		
+		levels.put(counter, new Stage(in.next(), frame));
+		
+		
+		
 		while(in.hasNext()) {
-			//System.out.println(counter);
-			//System.out.println(in.next());
-			levels.put(counter, new Stage(in.next()));
-			counter ++;
+			if (levels.get(1).levelWin()){
+				levels.remove(0);
+				levels.put(counter, new Stage(in.next(), frame));
+				counter ++;
+			}
 		}
+		
 		in.close();
 	}
 

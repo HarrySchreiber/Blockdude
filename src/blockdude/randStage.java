@@ -53,11 +53,11 @@ public class randStage {
 								break;
 							}
 					// use the otehr three blocks as their numbers are randomly generated
-					case 3: stage[i+1][j] = 'A';
+					case 3: stage[i+1][j] = 'M';
 							break;
-					case 4: stage[i+1][j] = 'M';
+					case 4: stage[i+1][j] = 'I';
 							break;
-					case 5: stage[i+1][j] = 'I';
+					case 5: stage[i+1][j] = 'A';
 							break;
 					default: 
 							break;

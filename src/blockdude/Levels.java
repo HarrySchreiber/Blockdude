@@ -17,12 +17,15 @@ public class Levels {
 	 * this constructor creates a new treemap for levels
 	 */
 	public Levels(String file) {
+		//System.out.println(file);
 		levels = new TreeMap<Integer, Stage>();
 		Scanner in = new Scanner(file);
-		in.useDelimiter(".");
+		in.useDelimiter("\\s*END\\s*");
 		Integer counter = 1;
 		
 		while(in.hasNext()) {
+			//System.out.println(counter);
+			//System.out.println(in.next());
 			levels.put(counter, new Stage(in.next()));
 			counter ++;
 		}

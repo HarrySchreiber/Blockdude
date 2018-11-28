@@ -25,7 +25,9 @@ public class main {
 		// TODO Auto-generated method stub
 		String levels = parseFile("levels.txt");
 		Levels game = new Levels(levels);
-		
+		//System.out.println(levels);
+		//randStage random = new randStage();
+		//Stage myStage = new Stage(random.getRandStage());
 	}
 		
 		

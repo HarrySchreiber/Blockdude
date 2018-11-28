@@ -2,8 +2,9 @@ package blockdude;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
-
+import java.util.Iterator;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -18,26 +19,13 @@ public class main {
 	/**
 	 * 
 	 * @param args is the arguments
+	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		Stage test = new Stage("AAAAAIIIAAAAIIIIIIIIIA\r\n" + 
-				"AIIIIAAAIIIIAAAAAAAAAI\r\n" + 
-				"IAAAAAAAAAAAAAAAAAAAAI\r\n" + 
-				"IAAAAAAAAAAAAAAAAAAAAI\r\n" + 
-				"IAAAAAAAAAAAAAAAAAAAAI\r\n" + 
-				"IAAAAAIAAAAAAAAAAAAAAI\r\n" + 
-				"IAAAAAIAAAAAAAAAAAAAAI\r\n" + 
-				"IAAAAAIMMMMAAAAAAAAAAI\r\n" + 
-				"IDAAAIIIIIIILAAAAAAAAI\r\n" + 
-				"IIAIIIAAAAAIIAIAAAAAMI\r\n" + 
-				"AIAIAAAAAAAAIAIIAAAMMI\r\n" + 
-				"AIAIAAAAAAAAIAIIAAMMMI\r\n" + 
-				"AIIIAAAAAAAAIAIIIIIIII\r\n" + 
-				"AAAAAAAAAAAAIIIAAAAAAA");
+		String levels = parseFile("levels.txt");
+		Levels game = new Levels(levels);
 		
-		randStage randTest = new randStage();
-		System.out.println(randTest.getRandStage());
 	}
 		
 		
@@ -46,12 +34,13 @@ public class main {
 	 * @param file is the file with all of the levels
 	 * @return a string for each level
 	 */
-	public String parseFile(String file) throws FileNotFoundException{
+	public static String parseFile(String file) throws FileNotFoundException{
 		File input = new File(file); 
 		String board = "";
 		Scanner fr = new Scanner(input); 
-		while(fr.hasNextLine()) {
-			board += fr.nextLine();
+		fr.useDelimiter("");
+		while(fr.hasNext()) {
+			board += fr.next();
 		}
 		fr.close();
 		return board;

@@ -1,7 +1,9 @@
 package blockdude;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * 
@@ -9,13 +11,13 @@ import java.util.Scanner;
  * this class holds all of the levels
  */
 public class Levels {
-	private HashMap<Integer,Stage> levels;
+	private TreeMap<Integer,Stage> levels;
 	
 	/**
-	 * this constructor creates a new hashmap for levels
+	 * this constructor creates a new treemap for levels
 	 */
 	public Levels(String file) {
-		HashMap <Integer, Stage> levels = new HashMap<Integer, Stage>();
+		levels = new TreeMap<Integer, Stage>();
 		Scanner in = new Scanner(file);
 		in.useDelimiter(".");
 		Integer counter = 1;
@@ -26,5 +28,9 @@ public class Levels {
 		}
 		in.close();
 	}
-	
+
+	public TreeMap<Integer, Stage> getLevels() {
+		return levels;
+	}
+
 }

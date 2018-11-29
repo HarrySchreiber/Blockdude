@@ -353,11 +353,19 @@ public class Stage extends JFrame implements KeyListener{
 							floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+						}else if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
+							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+							temp.setHoldingBlock(false);
+							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 						}
 					}else {
 						if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1));
+							temp.setHoldingBlock(false);
+							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+						}else if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
+							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 						}

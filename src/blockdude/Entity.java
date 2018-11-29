@@ -8,8 +8,8 @@ package blockdude;
 public abstract class Entity {
 	private int xPos;
 	private int yPos;
-	private static int pixelWidth = 100;
-	private static int pixelHeight = 100;
+	private int pixelWidth = 100;
+	private int pixelHeight = 100;
 	private boolean barrier;
 	private String fileName;
 	
@@ -62,7 +62,7 @@ public abstract class Entity {
 	 * 
 	 * @return the width width of each block in pixels
 	 */
-	public static int getPixelWidth() {
+	public int getPixelWidth() {
 		return pixelWidth;
 	}
 
@@ -71,7 +71,7 @@ public abstract class Entity {
 	 * 
 	 * @return the height of each block, in pixels
 	 */
-	public static int getPixelHeight() {
+	public int getPixelHeight() {
 		return pixelHeight;
 	}
 	

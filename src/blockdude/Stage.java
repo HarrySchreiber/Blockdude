@@ -3,7 +3,6 @@ package blockdude;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.*;

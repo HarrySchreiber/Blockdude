@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class randStage {
-	// these boolean values ensure that there is only one player and one door
-	boolean doorUsed = false;
-	boolean playerUsed = false;
-	
 	//the size of the randomly generated levels
 	final int NUM_ROWS = 7;
 	final int NUM_COLS = 31;
@@ -35,29 +31,19 @@ public class randStage {
 		// populate the rest of the array with blocks
 		for(int i = 0; i < NUM_ROWS - 1; i ++) {
 			for(int j = 0; j < NUM_COLS; j++) {
-				
+				if(j == 0 || j == NUM_COLS - 1) {
+					stage[i+1][j] = 'I';
+				}
 				// if the block below is immovable, any kind of block can be used
-				if(stage[i][j] == 'I') {
-					int randNum = rand.nextInt(5) + 1;
+				else if(stage[i][j] == 'I') {
+					int randNum = rand.nextInt(3) + 1;
 					switch(randNum) {
-					// check if the player block has already been used
-					case 1: if(!playerUsed) {
-								stage[i+1][j] = 'R';
-								playerUsed = true;
-								break;
-							}
-					// check if there is aready a door
-					case 2: if(!doorUsed) {
-								stage[i+1][j] = 'D';
-								doorUsed = true;
-								break;
-							}
 					// use the otehr three blocks as their numbers are randomly generated
-					case 3: stage[i+1][j] = 'M';
+					case 1: stage[i+1][j] = 'M';
 							break;
-					case 4: stage[i+1][j] = 'I';
+					case 2: stage[i+1][j] = 'I';
 							break;
-					case 5: stage[i+1][j] = 'A';
+					case 3: stage[i+1][j] = 'A';
 							break;
 					default: 
 							break;
@@ -86,6 +72,10 @@ public class randStage {
 				}
 			}
 		}
+		// add the player and the door to the stage
+		int randNum = rand.nextInt(NUM_COLS/2);
+		stage[1][randNum] = 'R';
+		stage[1][randNum + NUM_COLS/2] = 'D';
 		
 		// turn the array into a string
 		for(int i = NUM_ROWS; i > 0; i--) {

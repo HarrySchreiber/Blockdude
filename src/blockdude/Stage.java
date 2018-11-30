@@ -134,9 +134,8 @@ public class Stage extends JFrame implements KeyListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.repaint();
 		frame.setVisible(true);
-		frame.setSize(Entity.getPixelWidth() * stageWidth(), Entity.getPixelHeight() * stageHeight() + frame.getInsets().top - frame.getInsets().bottom);
+		frame.setSize(Entity.getPixelWidth() * stageWidth() + frame.getInsets().right + frame.getInsets().left, Entity.getPixelHeight() * stageHeight() + frame.getInsets().top + frame.getInsets().bottom);
 		frame.setResizable(false);
-		
 	}
 	
 	public void setWinT() {

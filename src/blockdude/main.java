@@ -22,12 +22,26 @@ public class main {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		String levels = parseFile("levels.txt");
-		Levels game = new Levels(levels);
-		//System.out.println(levels);
-		//randStage random = new randStage();
-		//Stage myStage = new Stage(random.getRandStage());
+		
+		HomePage a = new HomePage();
+		
+		int x = a.returnNextScreen();
+		
+		while(x == 0) {
+			x = a.returnNextScreen();
+			System.out.print(x);
+		}
+		
+		if (x == 1) {
+			a.setVisible(false);
+			a = null;
+			String levels = parseFile("levels.txt");
+			Levels game = new Levels(levels);
+		} else if (x == 2) {
+			//System.out.println(levels);
+			//randStage random = new randStage();
+			//Stage myStage = new Stage(random.getRandStage())
+		}
 	}
 		
 		

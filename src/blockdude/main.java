@@ -38,9 +38,10 @@ public class main {
 			String levels = parseFile("levels.txt");
 			Levels game = new Levels(levels);
 		} else if (x == 2) {
-			//System.out.println(levels);
-			//randStage random = new randStage();
-			//Stage myStage = new Stage(random.getRandStage())
+			a.setVisible(false);
+			a = null;
+			randStage random = new randStage();
+			Levels myStage = new Levels(random.getRandStage());
 		}
 	}
 		

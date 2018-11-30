@@ -77,39 +77,39 @@ public class Stage extends JFrame implements KeyListener{
 				if (temp == 'A') {
 					oneRow.add(new AirBlock(xPos, yPos));
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
-			        air.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        air.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 			        xPos = xPos + 1;
 				} else if (temp == 'I') {
 					oneRow.add(new ImmovableBlock(xPos, yPos));
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
-					immovable.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+					immovable.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 			        xPos = xPos + 1;
 				} else if (temp == 'M') {
 					oneRow.add(new MovableBlock(xPos, yPos));
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
-					movable.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+					movable.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(movable);
 					xPos = xPos + 1;
 				} else if (temp == 'D') {
 					oneRow.add(new Door(xPos,yPos));
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
-					door.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+					door.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 			        xPos = xPos + 1;
 				} else if (temp == 'R') {
 					boolean isLeftFacing = false;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
 					playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
-					playerRight.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+					playerRight.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(playerRight);
 			        xPos = xPos + 1;
 				} else if (temp == 'L') {
 					boolean isLeftFacing = true;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
 					playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
-					playerLeft.setBounds(xPos * 25, yPos * 25, Entity.getPixelWidth(), 100); // x, y, width, height
+					playerLeft.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(playerLeft);
 			        xPos = xPos + 1;
 				}
@@ -117,6 +117,8 @@ public class Stage extends JFrame implements KeyListener{
 			
 			
 			stage.add(oneRow);
+			
+			
 			xPos = 0;
 			yPos = yPos + 1;
 			lineScan.close();
@@ -166,14 +168,7 @@ public class Stage extends JFrame implements KeyListener{
 		stage.get(yPos2).get(xPos2).setyPos(yPos2);
 		
 	}
-	
-	/**
-	 * displays all of the block in the stage in an updated GUI
-	 */
-	public void displaysLevel() {
-		
-	}
-	
+
 	/** 
 	 * Takes an entity and drops it down to the floor, like gravity
 	 * 
@@ -256,12 +251,10 @@ public class Stage extends JFrame implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Figure out logic for these... Print Statements Just check if statements work
 		int keyCode = e.getKeyCode();
 		
 		if (isWon == false) {
 			if(keyCode == KeyEvent.VK_LEFT) {
-				System.out.println("Left");
 				//Changes Player Direction
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(true);
@@ -285,8 +278,6 @@ public class Stage extends JFrame implements KeyListener{
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
 			if(keyCode == KeyEvent.VK_RIGHT) {
-				System.out.println("Right");
-				System.out.println("Left");
 				//Changes player direction
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(false);
@@ -310,7 +301,6 @@ public class Stage extends JFrame implements KeyListener{
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
 			if(keyCode == KeyEvent.VK_UP) {
-				System.out.println("Up");
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				if(temp.getIsFacingLeft()) {
 					if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier() && !(stage.get(findPlayerYPos() - 1).get(findPlayerXPos()) instanceof ImmovableBlock)) {
@@ -329,7 +319,6 @@ public class Stage extends JFrame implements KeyListener{
 				}
 			}
 			if(keyCode == KeyEvent.VK_DOWN) {
-				System.out.println("Down");
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				if(!temp.isHoldingBlock()) {
 					if(temp.getIsFacingLeft()) {
@@ -372,8 +361,7 @@ public class Stage extends JFrame implements KeyListener{
 				}
 			}
 			
-			//FIXME Shows an Updated board after every move
-			printBoardCharacters();
+			charactersToBoard();
 		}
 	}
 
@@ -387,37 +375,7 @@ public class Stage extends JFrame implements KeyListener{
 		
 	}
 	
-	//FIXME Testing Material Begins
-	public void printClasses() {
-		String result = "";
-		for(ArrayList<Entity> x : stage) {
-			for(Entity y : x) {
-				result += y.getClass() + "\t";
-			}
-			result += "\n";
-		}
-		System.out.println(result);
-	}
-	
-	public void testSwap() {
-		Entity first = stage.get(2).get(1);
-		Entity second = stage.get(2).get(2);
-		this.swap(first, second);
-	}
-	
-	public void printLocations() {
-		String result = "";
-		for(ArrayList<Entity> x : stage) {
-			for(Entity y : x) {
-				result += "(" + y.getxPos() + "," + y.getyPos() + ")";
-			}
-			result += "\n";
-		}
-		System.out.println(result);
-	}
-	
-	public void printBoardCharacters(){
-		String result = "";        
+	public void charactersToBoard(){       
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setContentPane(panel);
@@ -425,51 +383,38 @@ public class Stage extends JFrame implements KeyListener{
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
 				if(y instanceof AirBlock) {
-					//Using " " instead of "A" to make things less cluttered
-					result += " ";
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
 			        air.setBounds(y.getxPos() * 25 , y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 				}else if(y instanceof Door) {
-					result += "D";
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
 			        door.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 				}else if(y instanceof ImmovableBlock) {
-					result += "I";
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
 			        immovable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 				}else if(y instanceof MovableBlock) {
-					result += "M";
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
 			        movable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 					panel.add(movable);
 				}else if(y instanceof Player) {
-					//Using arrows rather then "L" and "R" so its easier to determine
 					if(((Player) y).getIsFacingLeft()) {
-						result += "<";
 						playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
 				        playerLeft.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerLeft);
 					}else {
-						result += ">";
 						playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
 				        playerRight.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerRight);
 					}
 				}
 			}
-			result += "\n";
 		}
 		frame.invalidate();
 		frame.revalidate();
 		frame.repaint();
 		frame.setVisible(true);
-		System.out.println(result);
 	}
 	
-	
-	//FIXME End Testing Material
-
 }

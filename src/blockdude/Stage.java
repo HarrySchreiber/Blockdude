@@ -314,14 +314,14 @@ public class Stage extends JFrame implements KeyListener{
 				System.out.println("Up");
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				if(temp.getIsFacingLeft()) {
-					if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
+					if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier() && !(stage.get(findPlayerYPos() - 1).get(findPlayerXPos()) instanceof ImmovableBlock)) {
 						swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
 						if(temp.isHoldingBlock()) {
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 						}
 					}
 				}else {
-					if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
+					if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier() && !(stage.get(findPlayerYPos() - 1).get(findPlayerXPos()) instanceof ImmovableBlock)) {
 						swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1 ));
 						if(temp.isHoldingBlock()) {
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));

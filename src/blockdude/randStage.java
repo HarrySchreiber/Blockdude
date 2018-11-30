@@ -74,8 +74,10 @@ public class randStage {
 		}
 		// add the player and the door to the stage
 		int randNum = rand.nextInt(NUM_COLS/2);
-		stage[1][randNum] = 'R';
-		stage[1][randNum + NUM_COLS/2] = 'D';
+		stage[1][randNum + 1] = 'R';
+		stage[2][randNum] = 'A';
+		stage[1][randNum + NUM_COLS/2 - 1] = 'D';
+		stage[2][randNum + NUM_COLS/2] = 'A';
 		
 		// turn the array into a string
 		for(int i = NUM_ROWS; i > 0; i--) {

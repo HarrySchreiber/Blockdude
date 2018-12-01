@@ -360,13 +360,6 @@ public class Stage extends JFrame implements KeyListener{
 					}
 				}
 			}
-			
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 
 			charactersToBoard();
 		}

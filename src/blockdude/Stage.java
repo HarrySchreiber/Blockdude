@@ -248,56 +248,73 @@ public class Stage extends JFrame implements KeyListener{
 		return (findPlayerXPos() == doorXPos) && (findPlayerYPos() == doorYPos);
 	}
 	
-	
+	/*
+	 * From KeyListener, gets an input from the user and interprets into movements on the board
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
+		//Limits the game from running a level after its already been won
 		if (isWon == false) {
 			if(keyCode == KeyEvent.VK_LEFT) {
-				//Changes Player Direction
+				//Changes Player Direction to left, if not so already
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(true);
 				stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 				
-				//Moves Left
+				//Moves Left if there is not a barrier in front of the player
 				if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier()) {
+					//Swaps the player with the block in front of them
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+					//Moves the players block in unison if they happen to be holding one
 					if(temp.isHoldingBlock()) {
+						//Moves the block back on top of the player
 						if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						//Drops the block to the ground if the players block encounters another block
 						}else {
+							//Updates holding state
 							temp.setHoldingBlock(false);
+							//Replaces the player with the temporary variable because entity cannot be set directly to not holding block
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+							//Drops the entity to the floor
 							floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1));
 						}
 					}
 				}
 				
-				
+				//Drops the player to the ground if they put themselves over a hole
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
 			if(keyCode == KeyEvent.VK_RIGHT) {
-				//Changes player direction
+				//Changes Player Direction to right, if not so already
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(false);
 				stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 				
-				//Moves Right
+				//Moves Left if there is not a barrier in front of the player
 				if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier()) {
+					//Swaps the player with the block in front of them
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
+					//Moves the players block in unison if they happen to be holding one
 					if(temp.isHoldingBlock()) {
+						//Moves the block back on top of the player
 						if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
+						//Drops the block to the ground if the players block encounters another block
 						}else {
+							//Updates holding state
 							temp.setHoldingBlock(false);
+							//Replaces the player with the temporary variable because entity cannot be set directly to not holding block
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
+							//Drops the entity to the floor
 							floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
 						}
 					}
 				}
 				
-				
+				//Drops the player to the ground if they put themselves over a hole
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
 			if(keyCode == KeyEvent.VK_UP) {
@@ -364,12 +381,18 @@ public class Stage extends JFrame implements KeyListener{
 			charactersToBoard();
 		}
 	}
-
+	
+	/**
+	 * From KeyListener, not needed for project
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
 	}
-
+	
+	/*
+	 * From KeyListener, not needed for project
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
@@ -384,28 +407,28 @@ public class Stage extends JFrame implements KeyListener{
 			for(Entity y : x) {
 				if(y instanceof AirBlock) {
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
-			        air.setBounds(y.getxPos() * 25 , y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        air.setBounds(y.getxPos() * Entity.getPixelWidth() , y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 				}else if(y instanceof Door) {
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
-			        door.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        door.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 				}else if(y instanceof ImmovableBlock) {
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
-			        immovable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        immovable.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 				}else if(y instanceof MovableBlock) {
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
-			        movable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        movable.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 					panel.add(movable);
 				}else if(y instanceof Player) {
 					if(((Player) y).getIsFacingLeft()) {
 						playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
-				        playerLeft.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+				        playerLeft.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerLeft);
 					}else {
 						playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
-				        playerRight.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+				        playerRight.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerRight);
 					}
 				}

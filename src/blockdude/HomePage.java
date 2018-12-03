@@ -15,7 +15,7 @@ public class HomePage extends JFrame {
     public HomePage() {
     	nextScreen = 0;
 
-        setSize(400, 375);
+        setSize(400, 410);
         
         JPanel panel = new JPanel();
         

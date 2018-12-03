@@ -39,11 +39,11 @@ public class randStage {
 					int randNum = rand.nextInt(3) + 1;
 					switch(randNum) {
 					// use the otehr three blocks as their numbers are randomly generated
-					case 1: stage[i+1][j] = 'M';
+					case 1: stage[i+1][j] = 'A';
 							break;
 					case 2: stage[i+1][j] = 'I';
 							break;
-					case 3: stage[i+1][j] = 'A';
+					case 3: stage[i+1][j] = 'M';
 							break;
 					default: 
 							break;

@@ -18,21 +18,26 @@ public class Main {
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		
+		// Creates new home page
 		HomePage a = new HomePage();
 		
-		int x = a.returnNextScreen();
+		int gameChoice = a.returnNextScreen();
 		
-		while(x == 0) {
-			x = a.returnNextScreen();
-			System.out.print(x);
+		// Waits for user to click "Play" or "Random Level Generator"
+		while(gameChoice == 0) {
+			gameChoice = a.returnNextScreen();
+			System.out.print(gameChoice);
 		}
 		
-		if (x == 1) {
+		// Starts level or goes to random level generator based off users click
+		if (gameChoice == 1) {
+			// Clears home page
 			a.setVisible(false);
 			a = null;
 			String levels = parseFile("levels.txt");
 			Levels game = new Levels(levels);
-		} else if (x == 2) {
+		} else if (gameChoice == 2) {
+			// Clears home page
 			a.setVisible(false);
 			a = null;
 			randStage random = new randStage();

@@ -2,19 +2,14 @@ package blockdude;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
-
-import javax.swing.JFrame;
 
 /**
  * 
  * @author Henry Valentine Schreiber IV, Thomas Benjamin Clement, Jacob Thomas Dybas, Eric Spencer Lisle, Ethan Luke Harvey
  * this the main class
  */
-public class main {
+public class Main {
 	
 	/**
 	 * 

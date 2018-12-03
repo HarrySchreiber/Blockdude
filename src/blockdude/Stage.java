@@ -32,8 +32,6 @@ public class Stage extends JFrame implements KeyListener{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level, JFrame frame) {
-		
-		//FIXME This is far from finished yet, but necessary to get key events
 		this.frame = frame;
 	    panel = new JPanel();
 	    panel.setLayout(null);
@@ -145,25 +143,32 @@ public class Stage extends JFrame implements KeyListener{
 	}
 	
 	/**
+	 * Swaps two entities with each other
 	 * 
 	 * @param first is the entity to be swapped
 	 * @param second the entity to be swapped with
 	 */
 	public void swap(Entity first, Entity second) {
 		
+		//Gets the initial positions of the first entity
 		int xPos1 = first.getxPos();
 		int yPos1 = first.getyPos();
 		
+		//Gets the initial positions of the second entity
 		int xPos2 = second.getxPos();
 		int yPos2 = second.getyPos();
 
+		//Saved variable of the first entity
 		Entity temp = first;
+		//Swaps the entities
 		stage.get(yPos1).set(xPos1, second);
 		stage.get(yPos2).set(xPos2, temp);
 		
+		//Sets positions for the new first entity
 		stage.get(yPos1).get(xPos1).setxPos(xPos1);
 		stage.get(yPos1).get(xPos1).setyPos(yPos1);
 		
+		//Sets positions for the new second entity
 		stage.get(yPos2).get(xPos2).setxPos(xPos2);
 		stage.get(yPos2).get(xPos2).setyPos(yPos2);
 		
@@ -175,10 +180,13 @@ public class Stage extends JFrame implements KeyListener{
 	 * @param e An Entity to be moved to the floor
 	 */
 	public void floorEntity(Entity e) {
+		//Loops until the entity underneath is barrier block
 		while(!stage.get(e.getyPos() + 1).get(e.getxPos()).isBarrier()) {
+			//Swaps the block directly below the entity with the entity
 			swap(stage.get(e.getyPos() + 1).get(e.getxPos()), stage.get(e.getyPos()).get(e.getxPos()));
 			if(e instanceof Player) {
 				Player temp = (Player) e;
+				//Drops the entity down to the top of the player if a player holding a  block falls
 				if(temp.isHoldingBlock()) {
 					floorEntity(stage.get(e.getyPos() - 2).get(e.getxPos()));
 				}
@@ -200,6 +208,9 @@ public class Stage extends JFrame implements KeyListener{
 		return stage.size();
 	}
 	
+	/**
+	 * @return The x coordinate of the players current position
+	 */
 	public int findPlayerXPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -210,7 +221,9 @@ public class Stage extends JFrame implements KeyListener{
 		}
 		return -1;
 	}
-	
+	/**
+	 * @return The y coordinate of the players current position
+	 */
 	public int findPlayerYPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -222,6 +235,9 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
+	/**
+	 * @return the x position of the door in the stage
+	 */
 	public int findDoorXPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -233,6 +249,9 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
+	/**
+	 * @return the y position of the door in the stage
+	 */
 	public int findDoorYPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -244,6 +263,9 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
+	/**
+	 * @return true if the player has occupied the doors position
+	 */
 	public boolean levelWin() {
 		return (findPlayerXPos() == doorXPos) && (findPlayerYPos() == doorYPos);
 	}

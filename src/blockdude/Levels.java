@@ -1,14 +1,7 @@
 package blockdude;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javax.swing.*;
 /**
 * 
@@ -47,7 +40,6 @@ public class Levels {
         		 levels.put(1, new Stage(in.next(), frame));
         	 }
          }
-                             
          in.close();
      }
 

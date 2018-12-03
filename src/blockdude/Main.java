@@ -26,6 +26,7 @@ public class Main {
 		// Waits for user to click "Play" or "Random Level Generator"
 		while(gameChoice == 0) {
 			gameChoice = a.returnNextScreen();
+			System.out.print(gameChoice);
 		}
 		
 		// Starts level or goes to random level generator based off users click

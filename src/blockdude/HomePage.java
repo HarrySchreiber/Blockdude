@@ -39,7 +39,6 @@ public class HomePage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (button1.isEnabled()) {
                 	getNextScreen(1);
-                	System.out.println(nextScreen);
                 } else {
                 }
             }
@@ -50,7 +49,6 @@ public class HomePage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (button2.isEnabled()) {
                 	getNextScreen(2);
-                	System.out.println(nextScreen);
                 } else {
                 }
             }

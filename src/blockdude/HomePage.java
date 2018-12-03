@@ -12,14 +12,17 @@ public class HomePage extends JFrame {
     public HomePage() {
     	nextScreen = 0;
 
+    	// Creates window size
         setSize(400, 410);
         
+        // Create JPanel
         JPanel panel = new JPanel();
         
+        // Place "Dino Escape" image in home page
         untitled = new JLabel(new ImageIcon(getClass().getResource("Untitled.png")));
         untitled.setBounds(0,0,400,300);
         
-        // Create JButton and JPanel
+        // Create JButton
         JButton button1 = new JButton("Play");
         JButton button2 = new JButton("Play Random Level");
         
@@ -28,7 +31,7 @@ public class HomePage extends JFrame {
         panel.add(button1);
         panel.add(button2);
         
-        // And JPanel needs to be added to the JFrame itself!
+        // Adds JPanel to JFrame
         this.getContentPane().add(panel);
 
         // Button to start at level 1

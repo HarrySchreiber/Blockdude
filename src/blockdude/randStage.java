@@ -36,14 +36,15 @@ public class randStage {
 				}
 				// if the block below is immovable, any kind of block can be used
 				else if(stage[i][j] == 'I') {
-					int randNum = rand.nextInt(3) + 1;
+					int randNum = rand.nextInt(4) + 1;
 					switch(randNum) {
 					// use the otehr three blocks as their numbers are randomly generated
-					case 1: stage[i+1][j] = 'A';
+					case 1:
+					case 2: stage[i+1][j] = 'A';
 							break;
-					case 2: stage[i+1][j] = 'I';
+					case 3: stage[i+1][j] = 'I';
 							break;
-					case 3: stage[i+1][j] = 'M';
+					case 4: stage[i+1][j] = 'M';
 							break;
 					default: 
 							break;

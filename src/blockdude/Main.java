@@ -35,13 +35,8 @@ public class Main {
 		} else if (x == 2) {
 			a.setVisible(false);
 			a = null;
-			String result = "";
-			for(int i = 0; i < 11; i++) {
-				randStage random = new randStage();
-				result += random.getRandStage();
-				result += "END\n";
-			}
-			Levels myStage = new Levels(result);
+			randStage random = new randStage();
+			Levels myStage = new Levels(random.getRandStage());
 		}
 	}
 		

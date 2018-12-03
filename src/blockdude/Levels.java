@@ -1,5 +1,6 @@
 package blockdude;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.*;
@@ -40,6 +41,25 @@ public class Levels {
         		 levels.put(1, new Stage(in.next(), frame));
         	 }
          }
+         
+         //Waits for the last level to play out
+         while(true) {
+        	 if(levels.get(1).levelWin()) {
+        		 break;
+        	 }
+         }
+         
+         levels.get(1).setWinT();
+		 levels.remove(1);
+		 frame.getContentPane().removeAll();
+		 frame.dispose();
+		 
+		//Starts the Game from the home screen 
+		try {
+			Main.main(null);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
          
          in.close();
      }

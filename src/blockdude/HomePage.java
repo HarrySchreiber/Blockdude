@@ -21,7 +21,7 @@ public class HomePage extends JFrame {
         
         // Create JButton and JPanel
         JButton button1 = new JButton("Play");
-        JButton button2 = new JButton("Play 10 Random Levels");
+        JButton button2 = new JButton("Play Random Level");
         
         // Add button to JPanel
         panel.add(untitled);

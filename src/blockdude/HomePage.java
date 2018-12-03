@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import blockdude.HomePage;
-import blockdude.Levels;
-
 public class HomePage extends JFrame {
 	private javax.swing.JLabel untitled;
 	private int nextScreen;
@@ -24,7 +21,7 @@ public class HomePage extends JFrame {
         
         // Create JButton and JPanel
         JButton button1 = new JButton("Play");
-        JButton button2 = new JButton("Random Level Generator");
+        JButton button2 = new JButton("Play 10 Random Levels");
         
         // Add button to JPanel
         panel.add(untitled);

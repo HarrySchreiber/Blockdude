@@ -40,6 +40,7 @@ public class Levels {
         		 levels.put(1, new Stage(in.next(), frame));
         	 }
          }
+         
          in.close();
      }
 

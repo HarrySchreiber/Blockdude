@@ -32,6 +32,8 @@ public class Stage extends JFrame implements KeyListener{
 	 * @param level is the string from which the level is created
 	 */
 	public Stage(String level, JFrame frame) {
+		
+		//FIXME This is far from finished yet, but necessary to get key events
 		this.frame = frame;
 	    panel = new JPanel();
 	    panel.setLayout(null);
@@ -143,32 +145,25 @@ public class Stage extends JFrame implements KeyListener{
 	}
 	
 	/**
-	 * Swaps two entities with each other
 	 * 
 	 * @param first is the entity to be swapped
 	 * @param second the entity to be swapped with
 	 */
 	public void swap(Entity first, Entity second) {
 		
-		//Gets the initial positions of the first entity
 		int xPos1 = first.getxPos();
 		int yPos1 = first.getyPos();
 		
-		//Gets the initial positions of the second entity
 		int xPos2 = second.getxPos();
 		int yPos2 = second.getyPos();
 
-		//Saved variable of the first entity
 		Entity temp = first;
-		//Swaps the entities
 		stage.get(yPos1).set(xPos1, second);
 		stage.get(yPos2).set(xPos2, temp);
 		
-		//Sets positions for the new first entity
 		stage.get(yPos1).get(xPos1).setxPos(xPos1);
 		stage.get(yPos1).get(xPos1).setyPos(yPos1);
 		
-		//Sets positions for the new second entity
 		stage.get(yPos2).get(xPos2).setxPos(xPos2);
 		stage.get(yPos2).get(xPos2).setyPos(yPos2);
 		
@@ -180,13 +175,10 @@ public class Stage extends JFrame implements KeyListener{
 	 * @param e An Entity to be moved to the floor
 	 */
 	public void floorEntity(Entity e) {
-		//Loops until the entity underneath is barrier block
 		while(!stage.get(e.getyPos() + 1).get(e.getxPos()).isBarrier()) {
-			//Swaps the block directly below the entity with the entity
 			swap(stage.get(e.getyPos() + 1).get(e.getxPos()), stage.get(e.getyPos()).get(e.getxPos()));
 			if(e instanceof Player) {
 				Player temp = (Player) e;
-				//Drops the entity down to the top of the player if a player holding a  block falls
 				if(temp.isHoldingBlock()) {
 					floorEntity(stage.get(e.getyPos() - 2).get(e.getxPos()));
 				}
@@ -208,9 +200,6 @@ public class Stage extends JFrame implements KeyListener{
 		return stage.size();
 	}
 	
-	/**
-	 * @return The x coordinate of the players current position
-	 */
 	public int findPlayerXPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -221,9 +210,7 @@ public class Stage extends JFrame implements KeyListener{
 		}
 		return -1;
 	}
-	/**
-	 * @return The y coordinate of the players current position
-	 */
+	
 	public int findPlayerYPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -235,9 +222,6 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
-	/**
-	 * @return the x position of the door in the stage
-	 */
 	public int findDoorXPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -249,9 +233,6 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
-	/**
-	 * @return the y position of the door in the stage
-	 */
 	public int findDoorYPos() {
 		for(ArrayList<Entity> x : stage) {
 			for(Entity y : x) {
@@ -263,167 +244,115 @@ public class Stage extends JFrame implements KeyListener{
 		return -1;
 	}
 	
-	/**
-	 * @return true if the player has occupied the doors position
-	 */
 	public boolean levelWin() {
 		return (findPlayerXPos() == doorXPos) && (findPlayerYPos() == doorYPos);
 	}
 	
-	/*
-	 * From KeyListener, gets an input from the user and interprets into movements on the board
-	 */
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		
-		//Limits the game from running a level after its already been won
 		if (isWon == false) {
-			//Left arrow key event
 			if(keyCode == KeyEvent.VK_LEFT) {
-				//Changes Player Direction to left, if not so already
+				//Changes Player Direction
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(true);
 				stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 				
-				//Moves Left if there is not a barrier in front of the player
+				//Moves Left
 				if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier()) {
-					//Swaps the player with the block in front of them
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
-					//Moves the players block in unison if they happen to be holding one
 					if(temp.isHoldingBlock()) {
-						//Moves the block back on top of the player
 						if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
-						//Drops the block to the ground if the players block encounters another block
 						}else {
-							//Updates holding state
 							temp.setHoldingBlock(false);
-							//Replaces the player with the temporary variable because entity cannot be set directly to not holding block
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
-							//Drops the entity to the floor
 							floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1));
 						}
 					}
 				}
 				
-				//Drops the player to the ground if they put themselves over a hole
+				
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
-			//Right arrow key event
 			if(keyCode == KeyEvent.VK_RIGHT) {
-				//Changes Player Direction to right, if not so already
+				//Changes player direction
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
 				temp.setIsFacingLeft(false);
 				stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 				
-				//Moves Left if there is not a barrier in front of the player
+				//Moves Right
 				if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier()) {
-					//Swaps the player with the block in front of them
 					swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos()).get(findPlayerXPos()));
-					//Moves the players block in unison if they happen to be holding one
 					if(temp.isHoldingBlock()) {
-						//Moves the block back on top of the player
 						if(!stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier()) {
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
-						//Drops the block to the ground if the players block encounters another block
 						}else {
-							//Updates holding state
 							temp.setHoldingBlock(false);
-							//Replaces the player with the temporary variable because entity cannot be set directly to not holding block
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
-							//Drops the entity to the floor
 							floorEntity(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
 						}
 					}
 				}
 				
-				//Drops the player to the ground if they put themselves over a hole
+				
 				floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos()));
 			}
-			//Up arrow key event
 			if(keyCode == KeyEvent.VK_UP) {
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
-				//Moves up one block when the player is facing left
 				if(temp.getIsFacingLeft()) {
-					//Moves up if the blocks adjacent to the character allow it to
 					if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier() && !(stage.get(findPlayerYPos() - 1).get(findPlayerXPos()) instanceof ImmovableBlock)) {
-						//Swaps the player with the block diagonal to itself
 						swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1));
-						//Swaps the block on top of the player if the player was holding a block
 						if(temp.isHoldingBlock()) {
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 						}
 					}
-				//Moves up one block when the player is facing right
 				}else {
-					//Moves up if the blocks adjacent to the character allow it to
 					if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier() && !(stage.get(findPlayerYPos() - 1).get(findPlayerXPos()) instanceof ImmovableBlock)) {
-						//Swaps the player with the block diagonal to itself
 						swap(stage.get(findPlayerYPos()).get(findPlayerXPos()),stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1 ));
-						//Swaps the block on top of the player if the player was holding a block
 						if(temp.isHoldingBlock()) {
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1), stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 						}
 					}
 				}
 			}
-			//Down arrow key event
 			if(keyCode == KeyEvent.VK_DOWN) {
 				Player temp = (Player) stage.get(findPlayerYPos()).get(findPlayerXPos());
-				//If the player isn't holding a block then pick one up
 				if(!temp.isHoldingBlock()) {
-					//Pick up block to the left of player
 					if(temp.getIsFacingLeft()) {
-						//Picks the block up if the adjacent blocks allow it to be moved within movement rules
 						if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1) instanceof MovableBlock && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
-							//Swaps the block directly in front of the player with the one on its head
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							temp.setHoldingBlock(true);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 						}
-					//Pick up block to the right of the player
 					}else {
-						//Picks the block up if the adjacent blocks allow it to be moved within movement rules
 						if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1) instanceof MovableBlock && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos()).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
-							//Swaps the block directly in front of the player with the one on its head
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							temp.setHoldingBlock(true);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 						}
 					}
-				//If the player is holding a block put it down
 				}else {
-					//Put down block left of the player
 					if(temp.getIsFacingLeft()) {
-						//Puts block down in front of player
 						if(!stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
-							//Swaps block with the block in front of the player
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
-							//Drops the block to the floor if there is no floor where the player placed it
 							floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
-						//Puts block down on top of another block
 						}else if(stage.get(findPlayerYPos()).get(findPlayerXPos() - 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1).isBarrier()) {
-							//Swaps block with the block diagonal of the player
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() - 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
 						}
-					//Put down block right of the player
 					}else {
-						//Puts block down in front of player
 						if(!stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
-							//Swaps block with the block in front of the player
 							swap(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
-							//Drops the block to the floor if there is no floor where the player placed it
 							floorEntity(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
-						//Puts block down on top of another block
 						}else if(stage.get(findPlayerYPos()).get(findPlayerXPos() + 1).isBarrier() && !stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1).isBarrier()) {
-							//Swaps block with the block diagonal of the player
 							swap(stage.get(findPlayerYPos() - 1).get(findPlayerXPos() + 1),stage.get(findPlayerYPos() - 1).get(findPlayerXPos()));
 							temp.setHoldingBlock(false);
 							stage.get(findPlayerYPos()).set(findPlayerXPos(), temp);
@@ -431,23 +360,15 @@ public class Stage extends JFrame implements KeyListener{
 					}
 				}
 			}
-			
-			//Updates the board with new moves
 			charactersToBoard();
 		}
 	}
-	
-	/**
-	 * From KeyListener, not needed for project
-	 */
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
 	}
-	
-	/*
-	 * From KeyListener, not needed for project
-	 */
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
@@ -462,28 +383,28 @@ public class Stage extends JFrame implements KeyListener{
 			for(Entity y : x) {
 				if(y instanceof AirBlock) {
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
-			        air.setBounds(y.getxPos() * Entity.getPixelWidth() , y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        air.setBounds(y.getxPos() * 25 , y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 				}else if(y instanceof Door) {
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
-			        door.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        door.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 				}else if(y instanceof ImmovableBlock) {
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
-			        immovable.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        immovable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 				}else if(y instanceof MovableBlock) {
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
-			        movable.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+			        movable.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 					panel.add(movable);
 				}else if(y instanceof Player) {
 					if(((Player) y).getIsFacingLeft()) {
 						playerLeft = new JLabel(new ImageIcon(getClass().getResource("PlayerLeft.png")));
-				        playerLeft.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+				        playerLeft.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerLeft);
 					}else {
 						playerRight = new JLabel(new ImageIcon(getClass().getResource("PlayerRight.png")));
-				        playerRight.setBounds(y.getxPos() * Entity.getPixelWidth(), y.getyPos() * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
+				        playerRight.setBounds(y.getxPos() * 25, y.getyPos() * 25, Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 						panel.add(playerRight);
 					}
 				}

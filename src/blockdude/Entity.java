@@ -14,6 +14,7 @@ public abstract class Entity {
 	private String fileName;
 	
 	/**
+	 * Constructor for entities
 	 * 
 	 * @param xPos is the x coordinate of the top left corner
 	 * @param yPos is the y coordinate of the top left corner

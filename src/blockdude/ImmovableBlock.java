@@ -8,6 +8,7 @@ package blockdude;
 public class ImmovableBlock extends Entity{
 	
 	/**
+	 * Constructor for immovable blocks
 	 * 
 	 * @param xPos the x coordinate of the top left corner
 	 * @param yPos the y coordinate of the top left corner

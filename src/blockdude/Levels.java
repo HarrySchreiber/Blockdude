@@ -13,10 +13,9 @@ public class Levels {
 	private TreeMap<Integer,Stage> levels;
               
 	/**
-	 * this constructor creates a new treemap for levels
+	 * this constructor creates a new TreeMap for levels
 	 */
      public Levels(String file) {
-    	 //System.out.println(file);
          levels = new TreeMap<Integer, Stage>();
          Scanner in = new Scanner(file);
          in.useDelimiter("\\s*END\\s*");

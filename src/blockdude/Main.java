@@ -44,7 +44,7 @@ public class Main {
 	/**
 	 * 
 	 * @param file is the file with all of the levels
-	 * @return a string for each level
+	 * @return a string containing the contents of the whole file
 	 */
 	public static String parseFile(String file) throws FileNotFoundException{
 		File input = new File(file); 

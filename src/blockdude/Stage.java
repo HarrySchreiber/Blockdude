@@ -72,30 +72,35 @@ public class Stage extends JFrame implements KeyListener{
 				char temp = lineScan.next().charAt(0);
 				
 				// when calling entity we need to use x and y position
+				//Adds an Airblock
 				if (temp == 'A') {
 					oneRow.add(new AirBlock(xPos, yPos));
 					air = new JLabel(new ImageIcon(getClass().getResource("AirBlock.png")));
 			        air.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(air);
 			        xPos = xPos + 1;
+			    //Adds and Immovable Block
 				} else if (temp == 'I') {
 					oneRow.add(new ImmovableBlock(xPos, yPos));
 					immovable = new JLabel(new ImageIcon(getClass().getResource("ImmovableBlock.png")));
 					immovable.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(immovable);
 			        xPos = xPos + 1;
+			    //Adds a Movable Block
 				} else if (temp == 'M') {
 					oneRow.add(new MovableBlock(xPos, yPos));
 					movable = new JLabel(new ImageIcon(getClass().getResource("MovableBlock.png")));
 					movable.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(movable);
 					xPos = xPos + 1;
+				//Adds the door
 				} else if (temp == 'D') {
 					oneRow.add(new Door(xPos,yPos));
 					door = new JLabel(new ImageIcon(getClass().getResource("Door.png")));
 					door.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(door);
 			        xPos = xPos + 1;
+			    //Adds the Player Facing Right
 				} else if (temp == 'R') {
 					boolean isLeftFacing = false;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
@@ -103,6 +108,7 @@ public class Stage extends JFrame implements KeyListener{
 					playerRight.setBounds(xPos * Entity.getPixelWidth(), yPos * Entity.getPixelHeight(), Entity.getPixelWidth(), Entity.getPixelHeight()); // x, y, width, height
 			        panel.add(playerRight);
 			        xPos = xPos + 1;
+			    //Adds the player Facing Left
 				} else if (temp == 'L') {
 					boolean isLeftFacing = true;
 					oneRow.add(new Player(xPos, yPos, isLeftFacing));
@@ -113,7 +119,7 @@ public class Stage extends JFrame implements KeyListener{
 				}
 			}
 			
-			
+			//Adds the a line of entities to the stage
 			stage.add(oneRow);
 			
 			
@@ -125,6 +131,7 @@ public class Stage extends JFrame implements KeyListener{
 		
 		getLine.close();
 		
+		//Sets the door position for the stage
 		this.doorXPos = findDoorXPos();
 		this.doorYPos = findDoorYPos();
 		
@@ -138,6 +145,9 @@ public class Stage extends JFrame implements KeyListener{
 		frame.setResizable(false);
 	}
 	
+	/**
+	 * Sets the stage to "Won" when the game is finished
+	 */
 	public void setWinT() {
 		isWon = true;
 	}

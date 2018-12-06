@@ -30,8 +30,6 @@ public class Levels {
          frame.repaint();
          frame.setSize(500,500);
          frame.setVisible(true);
-         
-         long start = System.currentTimeMillis();
                              
          levels.put(counter, new Stage(in.next(), frame));
          while(in.hasNext()) {
@@ -48,23 +46,13 @@ public class Levels {
         	 if(levels.get(1).levelWin()) {
         		 break;
         	 }
-         }
+        }
          
-         levels.get(1).setWinT();
-		 levels.remove(1);
-		 frame.getContentPane().removeAll();
-		 frame.dispose();
+        levels.get(1).setWinT();
+		levels.remove(1);
+		frame.getContentPane().removeAll();
+		frame.dispose();
 		 
-		 long end = System.currentTimeMillis();
-		 
-		 System.out.println("Time in Seconds: \t" + (end - start)/1000.0);
-		 
-		 try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		 
 		//Starts the Game from the home screen 
 		try {
@@ -73,7 +61,7 @@ public class Levels {
 			e.printStackTrace();
 		}
          
-         in.close();
+        in.close();
      }
 
      public TreeMap<Integer, Stage> getLevels() {
